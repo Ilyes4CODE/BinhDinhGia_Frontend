@@ -6,7 +6,6 @@
 
         <meta name="description" content="">
         <meta name="author" content="">
-
         <title>Register</title>
 
         <!-- CSS FILES -->        
@@ -117,7 +116,7 @@
                                             </div>
                                 
                                             <!-- Branch select dropdown (dynamic options) -->
-                                            <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="col-12">
                                                 <select name="branche" id="branche" class="form-control" required>
                                                     <option value="" disabled selected>اختر النادي</option>
                                                     <!-- Options will be populated here by JavaScript -->
@@ -136,7 +135,16 @@
                                             </div>
                                 
                                             <div class="col-lg-6 col-md-6 col-12">
-                                                <input type="email" name="Email" id="email" class="form-control" placeholder="البريد الالكتروني" required>
+                                                <input type="email" name="email" id="email" class="form-control" placeholder="البريد الالكتروني" required>
+                                            </div>
+                                
+                                            <!-- Gender select dropdown -->
+                                            <div class="col-lg-6 col-md-6 col-12">
+                                                <select name="gender" id="gender" class="form-control w-100" required>
+                                                    <option value="" disabled selected>اختر الجنس</option>
+                                                    <option value="Male">ذكر</option>
+                                                    <option value="Female">أنثى</option>
+                                                </select>
                                             </div>
                                 
                                             <!-- File Uploads -->
@@ -146,7 +154,7 @@
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-12">
                                                 <label for="medical_cert">شهادة طبية</label>
-                                                <input type="file" name="medical_cert" id="medical_cert" class="form-control" accept=".pdf">
+                                                <input type="file" name="medical_certificat" id="medical_cert" class="form-control" accept=".pdf">
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-12">
                                                 <label for="white_pic">صورة بيضاء</label>
@@ -163,6 +171,7 @@
                                         </div>
                                     </div>
                                 </form>
+                                
                                 
                             </div>
                         </div>

@@ -25,39 +25,50 @@ document.getElementById('registration-form').addEventListener('submit', function
 
     // Send the form data to the backend API
     fetch('http://127.0.0.1:8000/Registrations/Create_registration/', {
-      method: 'POST',
-      body: formData,  // Send form data as body of the POST request
+        method: 'POST',
+        body: formData,  // Send form data as body of the POST request
     })
     .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new Error('Network response was not ok.');
+        if (response.status === 302) {
+            // Handle the case where the email is already registered
+            Swal.fire({
+                title: 'Email Already Registered',
+                text: 'The email address you provided is already registered. Please use a different email.',
+                icon: 'warning'
+            });
+            throw new Error('Email already registered');  // Stop further processing
+        }
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Network response was not ok.');
     })
     .then(data => {
-      // Show SweetAlert with a success message and download button
-      Swal.fire({
-        title: 'Registration Successful!',
-        text: 'Your registration has been successfully submitted.',
-        icon: 'success',
-        showCancelButton: true,
-        confirmButtonText: 'Download Certificate',
-        cancelButtonText: 'Close'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          downloadCertificate(data);  // Trigger certificate download if confirmed
-        }
-      });
+        // Show SweetAlert with a success message and download button
+        Swal.fire({
+            title: 'Registration Successful!',
+            text: 'Your registration has been successfully submitted.',
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonText: 'Download Certificate',
+            cancelButtonText: 'Close'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                downloadCertificate(data);  // Trigger certificate download if confirmed
+            }
+        });
     })
     .catch(error => {
-      console.error('There was a problem with the registration:', error);
-      Swal.fire({
-        title: 'Registration Failed!',
-        text: 'There was an issue with your registration. Please try again.',
-        icon: 'error'
-      });
+        if (error.message !== 'Email already registered') {
+            console.error('There was a problem with the registration:', error);
+            Swal.fire({
+                title: 'Registration Failed!',
+                text: 'There was an issue with your registration. Please try again.',
+                icon: 'error'
+            });
+        }
     });
-  });
+});
 
   function downloadCertificate(data) {
     fetch('http://127.0.0.1:8000/Registrations/api/generate-certificate/', {
